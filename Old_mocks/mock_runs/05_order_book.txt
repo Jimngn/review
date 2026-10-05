@@ -1,0 +1,30 @@
+import heapq
+
+
+class OrderBook:
+    def __init__ ():
+    #self.book = [] #where each part of it is going to be an order
+    #max heap for the bids, 
+        levels = {BUY: {}, SELL: {}}      # side -> {price_in_cents: deque[Order]}
+        #and then in each of the price level there will be a deque where I will use FIFO
+        #for the price priority, 
+        
+
+    
+    def add_order(side, price, qty):
+        if side == "Buy":
+            if price not in bid:
+                bid[price] = [qty]
+            else:
+                bid[price].append(qty)
+            heapify(bid.key())
+
+        elif side == "Sell":
+            if price not in ask:
+                ask[price] = [qty]
+            else:
+                ask[price].append(qty)
+            heapify(ask.key())
+
+    def print_book():
+

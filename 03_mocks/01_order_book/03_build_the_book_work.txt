@@ -1,0 +1,79 @@
+@dataclass
+class Order:
+    id
+    trader
+    side
+    price
+    qty
+
+
+
+class Book:
+    self.book = {bids: [], asks: []}
+
+    def best_bid():
+        if self.book[bids]:
+            return self.book[bids][0][price]
+        
+
+    def best_ask():
+        if self.book[asks]:
+            return self.book[asks][0][price]
+
+    def spread():
+        best_bid = self.best_bid()
+        best_ask = self.best_ask()
+        if best_bid is None or best_ask is None:
+            return None
+        spread = best_ask - best_bid
+        return(spread)    
+
+    def rest(book, order):
+        if order.side == BUY:
+            book_level = self.book[bids]
+            for i in range(len(book_level)):
+                if order.price > book_level[i][price]:
+                    book_level.insert(i, order)
+                    return
+            book_level.append(order)
+
+
+        else:
+            book_level = self.book[asks]
+            for i in range(len(book_level)):
+                if order.price < book_level[i][price]:
+                    book_level.insert(i, order)
+                    return
+            book_level.append(order)
+    
+    def submit(self, order):
+        trades = []
+
+        if order.side == BUY:
+            book_level = self.book[asks]
+            while order.qty > 0 and book_level and book_level[0][price] <= order.price:
+                resting = book_level[0]
+                price = resting[price]
+                qty_traded = min(resting[qty], order.qty)
+                resting[qty] -= qty_traded
+                order.qty -= qty_traded
+                other_side.append(resting[id])
+                trades.append((order.trader, resting[trader], qty_traded, price))
+
+                if resting[qty] == 0:
+                    del book_level[0]
+                
+            if order.qty != 0:
+                rest(order)
+        return trades
+
+    def cancel(self, order_id):
+        for i in range(len(self.book[bids])):
+            if self.book[bids][i][id] == order_id:
+                del self.book[bids][i]
+                return True
+        for i in range(len(self.book[asks])):
+            if self.book[asks][i][id] == order_id:
+                del self.book[asks][i]
+                return True
+        return False
